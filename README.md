@@ -11,7 +11,7 @@ mkdir -p ~/flutter-install
 cd ~/flutter-install
 
 Step 1:
-curl -LO https://raw.githubusercontent.com/youvita/flutter-install/main/install.sh
+curl -LO https://raw.githubusercontent.com/onedev-academy/flutter-install-mac/main/install.sh
 
 Step 2:
 chmod +x install.sh
