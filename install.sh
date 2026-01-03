@@ -111,10 +111,27 @@ fi
 
 # Install CocoaPods
 if command -v pod >/dev/null 2>&1; then
-   log "CocoaPods already installed at: $(command -v pod)"
+  log "CocoaPods already installed at: $(command -v pod)"
 else
-   log "Installing CocoaPods..."
-   gem install cocoapods --no-document
+  log "CocoaPods not found. Installing..."
+
+  # Ensure Homebrew Ruby is installed
+  if ! command -v ruby >/dev/null 2>&1 || ruby -v | grep -q "2.6."; then
+    log "Installing Homebrew Ruby..."
+    brew install ruby
+  fi
+
+  # Add Homebrew Ruby to PATH (Apple Silicon + Intel)
+  if [[ "$(uname -m)" == "arm64" ]]; then
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+  else
+    export PATH="/usr/local/opt/ruby/bin:$PATH"
+  fi
+
+  # Install CocoaPods
+  gem install cocoapods --no-document
+
+  log "CocoaPods installed successfully"
 fi
 
 # Verify installation
